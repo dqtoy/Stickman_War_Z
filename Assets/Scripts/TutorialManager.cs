@@ -24,7 +24,7 @@ public class TutorialManager : MonoBehaviour
 
 	private void Start()
 	{
-		this.tutorialIndex = PlayerPrefs.GetInt("tutorialIndex", 0);
+        this.tutorialIndex = PlayerPrefs.GetInt("tutorialIndex", 0);
        
     }
 

@@ -143,7 +143,7 @@ public class SceneManager : MonoBehaviour
 		}
 		else
 		{
-			base.Invoke("Reset", 1f);
+			base.Invoke("Reset", 2f);
 		}
 	}
 

@@ -243,7 +243,7 @@ public class StoryManager : MonoBehaviour
 			this.levelSteps.Enqueue(new LevelStep_ObjectMovement(this.miniboss.gameObject, 0.5f, false));
 			this.levelSteps.Enqueue(new LevelStep_CameraFocus(CharacterManager.instance.gameObject, this.miniboss.gameObject, Vector3.zero, Vector3.zero));
 			this.levelSteps.Enqueue(new LevelStep_Animation(this.miniboss.spine, "AxeIdle", true, 0f, true));
-			this.levelSteps.Enqueue(new LevelStep_Speech("靠近点鲜肉！", this.miniboss.head, 2.5f, false));
+			this.levelSteps.Enqueue(new LevelStep_Speech("靠近点新鲜的肉！", this.miniboss.head, 2.5f, false));
 			this.levelSteps.Enqueue(new LevelStep_Animation(this.miniboss.spine, "AxeRun", true, 0f, true));
 			this.levelSteps.Enqueue(new LevelStep_NpcEdit(this.miniboss, this.level, -1f));
 			this.levelSteps.Enqueue(new LevelStep_CameraFocus(CharacterManager.instance.gameObject, null, Vector3.zero, new Vector3(0f, -1.5f, 0f)));

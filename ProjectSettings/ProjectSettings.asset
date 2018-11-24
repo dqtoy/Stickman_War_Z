@@ -39,7 +39,7 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos:
-  - logo: {fileID: 21300000, guid: d22b992053b1519488a826e4ab3d4f4f, type: 3}
+  - logo: {fileID: 0}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 2800000, guid: d22b992053b1519488a826e4ab3d4f4f,
     type: 3}
@@ -244,8 +244,8 @@ PlayerSettings:
   appleEnableAutomaticSigning: 0
   clonedFromGUID: 00000000000000000000000000000000
   AndroidTargetDevice: 0
-  AndroidSplashScreenScale: 1
-  androidSplashScreen: {fileID: 0}
+  AndroidSplashScreenScale: 2
+  androidSplashScreen: {fileID: 2800000, guid: 7aa76b806eb69d6439605411db81f72e, type: 3}
   AndroidKeystoreName: D:/ProjectGenerated/StickFight/user.keystore
   AndroidKeyaliasName: 
   AndroidTVCompatibility: 1

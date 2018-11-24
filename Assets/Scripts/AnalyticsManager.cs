@@ -504,52 +504,6 @@ public class AnalyticsManager : MonoBehaviour
 		});
 	}
 
-	public void RateShown()
-	{
-		Analytics.CustomEvent("RateShown", new Dictionary<string, object>
-		{
-			{
-				"belt",
-				ItemManager.instance.LevelToBeltString(StoryManager.instance.level) + "带"
-            },
-			{
-				"totalCoins",
-				MonetizationManager.instance.coins
-			},
-			{
-				"currentWeapon",
-				ItemManager.instance.currentWeapon.GetName()
-			},
-			{
-				"currentHat",
-				ItemManager.instance.currentHat.GetName()
-			}
-		});
-	}
-
-	public void RatePressed()
-	{
-		Analytics.CustomEvent("RatePressed", new Dictionary<string, object>
-		{
-			{
-				"belt",
-				ItemManager.instance.LevelToBeltString(StoryManager.instance.level) + "带"
-            },
-			{
-				"totalCoins",
-				MonetizationManager.instance.coins
-			},
-			{
-				"currentWeapon",
-				ItemManager.instance.currentWeapon.GetName()
-			},
-			{
-				"currentHat",
-				ItemManager.instance.currentHat.GetName()
-			}
-		});
-	}
-
 	public void IAPInitializeFailed()
 	{
 		Analytics.CustomEvent("IAPInitializeFailed", new Dictionary<string, object>

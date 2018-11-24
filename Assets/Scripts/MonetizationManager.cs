@@ -20,11 +20,7 @@ public class MonetizationManager : MonoBehaviour
 
 	private DateTime lastGiftTime;
 
-    public GameObject rewardVideObject;
-
 	public GameObject tipObject;
-
-	public GameObject rateObject;
 
     public GameObject removeAdObject;
 
@@ -64,8 +60,6 @@ public class MonetizationManager : MonoBehaviour
 
 	private bool willShowGift;
 
-	private bool willShowRate;
-
 	public double coinSpawnTime;
 
 	public bool coinSpawned;
@@ -79,8 +73,6 @@ public class MonetizationManager : MonoBehaviour
 	public ObscuredInt comboCount;
 
 	public ObscuredInt interstitialShowCount;
-
-	public ObscuredInt interstitialShowRate;
 
 	public int gameOverCount;
 
@@ -111,11 +103,10 @@ public class MonetizationManager : MonoBehaviour
 	{
 		this.gameOverCount = PlayerPrefs.GetInt("gameOverCount", 0);
 		this.coins = PlayerPrefs.GetInt("coins", 0);
-        this.coins = 2000000;
+        //this.coins = 200000000;  //自定义
         this.freeGiftCount = PlayerPrefs.GetInt("freeGiftCount", 0);
 		this.gotItemCount = PlayerPrefs.GetInt("gotItemCount", 0);
 		this.lastGiftTime = DateTime.Parse(PlayerPrefs.GetString("lastGiftTime", DateTime.Now.ToString()));
-		this.interstitialShowRate = 5;
 		this.interstitialShowCount = PlayerPrefs.GetInt("interstitialShowCount", 0);
 		if (this.interstitialShowCount == 0)
 		{
@@ -124,15 +115,6 @@ public class MonetizationManager : MonoBehaviour
 		}
 		//RemoteSettings.Updated += new RemoteSettings.UpdatedEventHandler(this.RemoteSettingsUpdated);
 	}
-
-	//public void RemoteSettingsUpdated()
-	//{
- //       this.interstitialShowRate = RemoteSettings.GetInt("interstitialShowRate");
- //       if ((this.gameOverCount - this.interstitialShowCount) % this.interstitialShowRate == 0)
- //       {
- //           this.interstitialShowCount++;
- //       }
- //   }
 
 	public void OnGameStart()
 	{
@@ -147,11 +129,10 @@ public class MonetizationManager : MonoBehaviour
         this.willShowAd = false;
         this.willShowGift = false;
         this.willShowItem = false;
-        this.willShowRate = false;
         this.justShowAdBefore = false;
 
 
-        if (this.interstitialShowRate != 0 && this.gameOverCount > 5 && this.gameOverCount % this.interstitialShowRate == 0 && PlayerPrefsX.GetBool("removeads", false) == false)
+        if (this.gameOverCount > 5 && PlayerPrefsX.GetBool("removeads", false) == false)
         {
             //AdsController.instance.ShowInterstitial();
             justShowAdBefore = true;
@@ -204,25 +185,19 @@ public class MonetizationManager : MonoBehaviour
         if (this.gameOverCount > 10 && this.gameOverCount % 5 == 0)
         {
             this.willShowAd = true;
-            this.willShowRate = false;
         } else
         {
             this.willShowAd = false;
-            this.willShowRate = false;
         }
         if (this.gameOverCount > 10 && this.gameOverCount % 7==0 && StatManager.instance.stats[0].value> PlayerPrefs.GetInt("leaderboardsBestScore", 0))
 		{
-			this.willShowRate = true;
 			this.willShowAd = false;
 		}
 
         if (justShowAdBefore && PlayerPrefsX.GetBool("removeads", false) == true)
         {
-            this.willShowRate = false;
             this.willShowAd = false;
         }
-
-        //Debug.Log("show ads " + willShowAd + " show rate " + willShowRate + " justshow " + justShowAdBefore);
 
 		if (this.CheckForFreeGift())
 		{
@@ -420,71 +395,26 @@ public class MonetizationManager : MonoBehaviour
             if (!this.tipObject.activeInHierarchy)
             {
                 this.tipObject.SetActive(true);
-                this.rateObject.SetActive(false);
-                this.rewardVideObject.SetActive(false);
                 this.removeAdObject.SetActive(false);
             }
 
             if (this.willShowAd)
             {
-                if (!this.rewardVideObject.activeInHierarchy)
-                {
-                    this.rewardVideObject.SetActive(true);
-                }
-
                 if (this.tipObject.activeInHierarchy)
                 {
                     AnalyticsManager.instance.RewardedVideoAvailable();
                     this.tipObject.SetActive(false);
                 }
 
-                if (this.rateObject.activeInHierarchy)
-                {
-                    this.rateObject.SetActive(false);
-                }
-
                 if (this.removeAdObject.activeInHierarchy)
                 {
                     this.removeAdObject.SetActive(false);
                 }
 
-            }
-          
-            if (this.willShowRate)
-            {
-                if (!this.rateObject.activeInHierarchy)
-                {
-                    this.rateObject.SetActive(true);
-                    AnalyticsManager.instance.RateShown();
-                }
-                if (this.rewardVideObject.activeInHierarchy)
-                {
-                    this.rewardVideObject.SetActive(false);
-                }
-
-                if (this.tipObject.activeInHierarchy)
-                {
-                    this.tipObject.SetActive(false);
-                }
-                if (this.removeAdObject.activeInHierarchy)
-                {
-                    this.removeAdObject.SetActive(false);
-                }
-
-            }
+            }      
 
             if (this.justShowAdBefore)
             {
-                if (this.rateObject.activeInHierarchy)
-                {
-                    this.rateObject.SetActive(false);
-                  
-                }
-                if (this.rewardVideObject.activeInHierarchy)
-                {
-                    this.rewardVideObject.SetActive(false);
-                }
-
                 if (this.tipObject.activeInHierarchy)
                 {
                     this.tipObject.SetActive(false);
@@ -529,7 +459,7 @@ public class MonetizationManager : MonoBehaviour
         this.coinEffect.SetActive(true);
         this.coinEffect.transform.SetParent(null);
         soulAnim.AnimationState.SetAnimation(0, "end", false);
-		int num = 1;
+		int num = 1; //自定义
 		this.comboCount = ++this.comboCount;
 		if (this.comboCount > this.highestCoinCombo)
 		{
@@ -897,12 +827,6 @@ public class MonetizationManager : MonoBehaviour
         }
     }
 
-    public void OnRatePressed()
-	{
-		Application.OpenURL("market://details?id=com.gianttitan.stickmanwar");
-		AnalyticsManager.instance.RatePressed();
-		this.willShowRate = false;
-	}
 
 
 	public void OnSharePressed()

@@ -588,9 +588,11 @@ public class ItemManager : MonoBehaviour
 
 	public void GotItem(int type, string id, bool isBelt = false, bool registerNotifs = false)
 	{
-        if(SceneManager.instance.currentState != SceneManager.State.gotItem){
-            SceneManager.instance.previousState = SceneManager.instance.currentState;
-            SceneManager.instance.currentState = SceneManager.State.gotItem;
+        if(SceneManager.instance.currentState != SceneManager.State.gotItem)
+        {
+            SceneManager.instance.ChangeState(SceneManager.State.gotItem);
+            //SceneManager.instance.previousState = SceneManager.instance.currentState;
+            //SceneManager.instance.currentState = SceneManager.State.gotItem;
         }
 		if (registerNotifs)
 		{
@@ -918,14 +920,14 @@ public class ItemManager : MonoBehaviour
 
     public void CloseGotItem()
     {
-        if (SceneManager.instance.currentState == SceneManager.State.gotItem && !MenuUIController.instance.isOpenGameOver)
+        //SceneManager.instance.currentState == SceneManager.State.gotItem && //会出bug
+        if (!MenuUIController.instance.isOpenGameOver)
         {
             this.spine.timeScale = 1;
             this.gotWeaponImage.transform.GetChild(0).gameObject.SetActive(false);
             if (this.registerNotifs)
             {
                 this.registerNotifs = false;
-                //NPBinding.NotificationService.RegisterNotificationTypes(NotificationType.Badge | NotificationType.Sound | NotificationType.Alert);
                 if (!MonetizationManager.instance.notifToggle.isOn)
                 {
                     MonetizationManager.instance.notifToggle.OnToggle();
@@ -933,26 +935,29 @@ public class ItemManager : MonoBehaviour
             }
 
 
-
-            //SceneManager.instance.gettingItem = false;
-            //this.gotItemOpen = false;
             this.droppingItem.gameObject.SetActive(false);
-            //NpcManager.instance.ContinueAll();
-            if (this.gotItem.gameObject.activeInHierarchy )
+
+            if (this.gotItem.gameObject.activeInHierarchy)
             {
                 this.radialOpenAnim.Play("radialClose");
             }
-            if (SceneManager.instance.currentState == SceneManager.State.gotItem && !MenuUIController.instance.isOpenGameOver && SceneManager.instance.previousState == SceneManager.State.gameOver)
+            //&& !MenuUIController.instance.isOpenGameOver //多余
+            if (SceneManager.instance.currentState == SceneManager.State.gotItem && SceneManager.instance.previousState == SceneManager.State.gameOver)
             {
-                //SceneManager.instance.menu.Play("menuGameOver");
                 MenuUIController.instance.OpenGameOver();
             }
-            else if (SceneManager.instance.currentState != SceneManager.State.gameOver && !MenuUIController.instance.isOpenGameOver && SceneManager.instance.previousState != SceneManager.State.gameOver)
+            //!MenuUIController.instance.isOpenGameOver && //多余
+            else if (SceneManager.instance.currentState != SceneManager.State.gameOver && SceneManager.instance.previousState != SceneManager.State.gameOver)
             {
                 NpcManager.instance.ContinueAll();
 
                 MenuUIController.instance.OpenMenu();
-                //SceneManager.instance.menu.Play("menuOpen");
+            }
+            else
+            {
+                //瞎几把点导致状态发生意外变化，强制修改状态
+                SceneManager.instance.currentState = SceneManager.State.gotItem;
+                MenuUIController.instance.OpenGameOver();
             }
             if (this.endStory)
             {
@@ -1324,7 +1329,7 @@ public class ItemManager : MonoBehaviour
                     }
                     else
                     {
-                        price = "商店离线";
+                        price = "";
                     }
                     child.GetComponent<ItemEquipment>().UpdatePrice(price);
                     child.GetComponent<ItemEquipment>().UpdateBuyButton();
@@ -1365,7 +1370,7 @@ public class ItemManager : MonoBehaviour
                     }
                     else
                     {
-                        price = "商店离线";
+                        price = "";
                     }
                     child.GetComponent<ItemEquipment>().UpdatePrice(price);
                     child.GetComponent<ItemEquipment>().UpdateBuyButton();
@@ -1430,7 +1435,7 @@ public class ItemManager : MonoBehaviour
             }
             else
             {
-                price = "商店离线";
+                price = "";
             }
             tempWeapon.GetComponent<ItemEquipment>().SetupDataItem(spriteItemName, nameItem, isBought, price, current.Value, null);
             tempWeapon.transform.SetParent(contentItemWeapon);
@@ -1482,7 +1487,7 @@ public class ItemManager : MonoBehaviour
             }
             else
             {
-                price = "商店离线";
+                price = "";
             }
             tempHat.GetComponent<ItemEquipment>().SetupDataItem(spriteItemName, nameItem, isBought, price, null, current.Value);
             tempHat.transform.SetParent(contentItemHat);

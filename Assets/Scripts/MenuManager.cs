@@ -22,8 +22,7 @@ public class MenuManager : MonoBehaviour
 
 	public CanvasGroup statsCanvas;
 
-
-	public CanvasGroup creditsCanvas;
+	//public CanvasGroup creditsCanvas;
 
 	private int currentPanelIndex;
 
@@ -151,10 +150,6 @@ public class MenuManager : MonoBehaviour
 
 	public void ChangePanel(int panelId)
 	{
-		if (panelId == 2)
-		{
-			AnalyticsManager.instance.ShopPressed();
-		}
 		this.panels[this.currentPanelIndex].isOpen = false;
 		this.currentPanelIndex = panelId;
 		this.panels[this.currentPanelIndex].isOpen = true;
