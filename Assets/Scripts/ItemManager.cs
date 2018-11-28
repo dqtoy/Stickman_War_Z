@@ -1548,12 +1548,6 @@ public class ItemManager : MonoBehaviour
             }
             OpenConfirmUnlockedPanel();
         }
-		else if (id == "removeads")
-		{
-            PlayerPrefsX.SetBool("removeads", true);
-            //AdsController.instance.HideBanner();
-            MonetizationManager.instance.OpenRemoveAdsPanel();
-        }
 		
 		AnalyticsManager.instance.BoughtItem(id);
 	}

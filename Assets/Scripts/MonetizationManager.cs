@@ -22,8 +22,6 @@ public class MonetizationManager : MonoBehaviour
 
 	public GameObject tipObject;
 
-    public GameObject removeAdObject;
-
 	public Text tipText;
 
 	public Text giftNotReady;
@@ -42,7 +40,7 @@ public class MonetizationManager : MonoBehaviour
 
 	public GameObject itemObject;
 
-	public GameObject adObject;
+	public GameObject topObject;
 
 	public ObscuredInt coins;
 
@@ -54,7 +52,7 @@ public class MonetizationManager : MonoBehaviour
 
 	public Text comboText;
 
-	private bool willShowAd;
+	//private bool willShowAd;
 
 	private bool willShowItem;
 
@@ -88,12 +86,9 @@ public class MonetizationManager : MonoBehaviour
 
     public GameObject gameOverMenu;
 
-    public GameObject removeAdsPanel;
-
-
 	public MenuToggle notifToggle;
 
-    public bool justShowAdBefore = false;
+    //public bool justShowAdBefore = false;
 	private void Awake()
 	{
 		MonetizationManager.instance = this;
@@ -126,17 +121,17 @@ public class MonetizationManager : MonoBehaviour
     {
         this.SaveCoins();
         this.coinSpawned = false;
-        this.willShowAd = false;
+        //this.willShowAd = false;
         this.willShowGift = false;
         this.willShowItem = false;
-        this.justShowAdBefore = false;
+        //this.justShowAdBefore = false;
 
 
-        if (this.gameOverCount > 5 && PlayerPrefsX.GetBool("removeads", false) == false)
-        {
-            //AdsController.instance.ShowInterstitial();
-            justShowAdBefore = true;
-        }
+        //if (this.gameOverCount > 5 && PlayerPrefsX.GetBool("removeads", false) == false)
+        //{
+        //    //AdsController.instance.ShowInterstitial();
+        //    justShowAdBefore = true;
+        //}
 
         // sua sau
 
@@ -182,22 +177,22 @@ public class MonetizationManager : MonoBehaviour
 		//{
 		//	this.NextTip();
 		//}
-        if (this.gameOverCount > 10 && this.gameOverCount % 5 == 0)
-        {
-            this.willShowAd = true;
-        } else
-        {
-            this.willShowAd = false;
-        }
-        if (this.gameOverCount > 10 && this.gameOverCount % 7==0 && StatManager.instance.stats[0].value> PlayerPrefs.GetInt("leaderboardsBestScore", 0))
-		{
-			this.willShowAd = false;
-		}
+  //      if (this.gameOverCount > 10 && this.gameOverCount % 5 == 0)
+  //      {
+  //          this.willShowAd = true;
+  //      } else
+  //      {
+  //          this.willShowAd = false;
+  //      }
+  //      if (this.gameOverCount > 10 && this.gameOverCount % 7==0 && StatManager.instance.stats[0].value> PlayerPrefs.GetInt("leaderboardsBestScore", 0))
+		//{
+		//	this.willShowAd = false;
+		//}
 
-        if (justShowAdBefore && PlayerPrefsX.GetBool("removeads", false) == true)
-        {
-            this.willShowAd = false;
-        }
+  //      if (justShowAdBefore && PlayerPrefsX.GetBool("removeads", false) == true)
+  //      {
+  //          this.willShowAd = false;
+  //      }
 
 		if (this.CheckForFreeGift())
 		{
@@ -388,42 +383,42 @@ public class MonetizationManager : MonoBehaviour
 		{
 			this.CheckForFreeGift();
 			this.CheckForCoinGift();
-            if (!this.adObject.activeInHierarchy)
+            if (!this.topObject.activeInHierarchy)
             {
-                this.adObject.SetActive(true);
+                this.topObject.SetActive(true);
             }
             if (!this.tipObject.activeInHierarchy)
             {
+                this.NextTip();
                 this.tipObject.SetActive(true);
-                this.removeAdObject.SetActive(false);
             }
 
-            if (this.willShowAd)
-            {
-                if (this.tipObject.activeInHierarchy)
-                {
-                    AnalyticsManager.instance.RewardedVideoAvailable();
-                    this.tipObject.SetActive(false);
-                }
+            //if (this.willShowAd)
+            //{
+            //    if (this.tipObject.activeInHierarchy)
+            //    {
+            //        AnalyticsManager.instance.RewardedVideoAvailable();
+            //        this.tipObject.SetActive(false);
+            //    }
 
-                if (this.removeAdObject.activeInHierarchy)
-                {
-                    this.removeAdObject.SetActive(false);
-                }
+            //    if (this.removeAdObject.activeInHierarchy)
+            //    {
+            //        this.removeAdObject.SetActive(false);
+            //    }
 
-            }      
+            //}      
 
-            if (this.justShowAdBefore)
-            {
-                if (this.tipObject.activeInHierarchy)
-                {
-                    this.tipObject.SetActive(false);
-                }
-                if (!this.removeAdObject.activeInHierarchy)
-                {
-                    this.removeAdObject.SetActive(true);
-                }
-            }
+            //if (this.justShowAdBefore)
+            //{
+            //    if (this.tipObject.activeInHierarchy)
+            //    {
+            //        this.tipObject.SetActive(false);
+            //    }
+            //    if (!this.removeAdObject.activeInHierarchy)
+            //    {
+            //        this.removeAdObject.SetActive(true);
+            //    }
+            //}
 
             if (this.willShowItem)
 			{
@@ -863,21 +858,6 @@ public class MonetizationManager : MonoBehaviour
  //       crossPlatformNotification.AndroidProperties = androidSpecificProperties;
  //       NPBinding.NotificationService.ScheduleLocalNotification(crossPlatformNotification);
  //   }
-
-    public void OpenRemoveAdsPanel()
-    {
-        this.gameOverMenu.SetActive(false);
-        this.removeAdsPanel.SetActive(true);
-    }
-
-    public void CloseRemoveAdsPanel()
-    {
-        this.gameOverMenu.SetActive(true);
-        this.removeAdsPanel.SetActive(false);
-        this.justShowAdBefore = false;
-        this.removeAdObject.SetActive(false);
-        this.tipObject.SetActive(true);
-    }
 
     public void BuyRemoveAds()
     {
