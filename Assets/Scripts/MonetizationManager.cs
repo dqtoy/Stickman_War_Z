@@ -601,7 +601,7 @@ public class MonetizationManager : MonoBehaviour
 		}
 		if (!flag)
 		{
-			string text = "消耗 "+ (200 - this.coins) + "魂继续";
+			string text = "还差"+ (200 - this.coins) + "魂可购买物品";
 			if (this.coinNotReady.text != text)
 			{
 				this.coinNotReady.text = text;
