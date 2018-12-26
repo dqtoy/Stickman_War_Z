@@ -21,8 +21,6 @@ public class ItemManager : MonoBehaviour
 
     public GameObject _itemPanel, _buyallPanel,_buyAllObj,_confirmObj;
 
-    public GameObject _buyAllBtn;
-
 	public bool itemMenuOpen;
 
 	public SkeletonAnimation spine;
@@ -145,8 +143,6 @@ public class ItemManager : MonoBehaviour
 
 	private static Action<GameObject> __f__am_cache0;
 
-    private bool unlockAll = false;
-
 	private void Awake()
 	{
 	}
@@ -195,7 +191,6 @@ public class ItemManager : MonoBehaviour
 		this.spine.state.Event += new Spine.AnimationState.TrackEntryEventDelegate(this.OnSpineEvent);
 		this.currentWeapon = this.weaponsById[PlayerPrefs.GetString("currentWeapon", "fist0")];
 		this.currentHat = this.hatsById[PlayerPrefs.GetString("currentHat", "hat0")];
-        this.unlockAll = PlayerPrefsX.GetBool("unlockAllItem", false);
 
         this.CheckIfCurrentItemsOwned();
 		this.InitWeaponTrails();
@@ -244,19 +239,6 @@ public class ItemManager : MonoBehaviour
 
 	public void Update()
 	{
-        if (!this.unlockAll)
-        {
-            if (!_buyAllBtn.activeInHierarchy)
-            {
-                _buyAllBtn.SetActive(true);
-            }
-        } else
-        {
-            if (_buyAllBtn.activeInHierarchy)
-            {
-                _buyAllBtn.SetActive(false);
-            }
-        }
         if ((SceneManager.instance.gameStarted && (SceneManager.instance.isEndless || StoryManager.instance.introCompleted)) || (SceneManager.instance.currentState == SceneManager.State.gameOver && !this.gotItemOpen && !this.itemMenuOpen && !SceneManager.instance.gettingItem))
 		{
 			if (!this.scoreCanvas.gameObject.activeInHierarchy)
@@ -1329,7 +1311,7 @@ public class ItemManager : MonoBehaviour
                     }
                     else
                     {
-                        price = "";
+                        price = "未解锁";
                     }
                     child.GetComponent<ItemEquipment>().UpdatePrice(price);
                     child.GetComponent<ItemEquipment>().UpdateBuyButton();
@@ -1370,7 +1352,7 @@ public class ItemManager : MonoBehaviour
                     }
                     else
                     {
-                        price = "";
+                        price = "未解锁";
                     }
                     child.GetComponent<ItemEquipment>().UpdatePrice(price);
                     child.GetComponent<ItemEquipment>().UpdateBuyButton();
@@ -1533,21 +1515,21 @@ public class ItemManager : MonoBehaviour
 			int type = 2;
 			this.GotItem(type, id, false, false);
 		}
-		else if (id == "unlockall")
-		{
-            this.unlockAll = true;
-            PlayerPrefsX.SetBool("unlockAllItem", this.unlockAll);
+		//else if (id == "unlockall")
+		//{
+  //          this.unlockAll = true;
+  //          PlayerPrefsX.SetBool("unlockAllItem", this.unlockAll);
 
-            foreach (KeyValuePair<string, Weapon> current in ItemManager.instance.weaponsById)
-            {
-                current.Value.Own();
-            }
-            foreach (KeyValuePair<string, Hat> current2 in ItemManager.instance.hatsById)
-            {
-                current2.Value.Own();
-            }
-            OpenConfirmUnlockedPanel();
-        }
+  //          foreach (KeyValuePair<string, Weapon> current in ItemManager.instance.weaponsById)
+  //          {
+  //              current.Value.Own();
+  //          }
+  //          foreach (KeyValuePair<string, Hat> current2 in ItemManager.instance.hatsById)
+  //          {
+  //              current2.Value.Own();
+  //          }
+  //          OpenConfirmUnlockedPanel();
+  //      }
 		
 		AnalyticsManager.instance.BoughtItem(id);
 	}
@@ -1579,21 +1561,16 @@ public class ItemManager : MonoBehaviour
         _buyallPanel.SetActive(false);
     }
 
-    public void OpenConfirmUnlockedPanel()
-    {
-        _buyAllObj.SetActive(false);
-        _confirmObj.SetActive(true);
-    }
+    //public void OpenConfirmUnlockedPanel()
+    //{
+    //    _buyAllObj.SetActive(false);
+    //    _confirmObj.SetActive(true);
+    //}
 
     public void CloseConfirmUnlockedAndReloadItem()
     {
         _itemPanel.SetActive(true);
         _buyallPanel.SetActive(false);
         OpenWeaponList();
-    }
-
-    public void OnPressConfirmBuyAll()
-    {
-        StoreManager.instance.BuyProductID("unlockall");
     }
 }

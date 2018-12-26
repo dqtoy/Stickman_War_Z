@@ -450,11 +450,12 @@ public class Npc : MonoBehaviour
 					if (SceneManager.instance.isEndless)
 					{
 						EndlessManager.instance.OnSpecialEnemyKilled();
-						if (this.currentHat.id == "goku")
+
+                        if (this.currentHat.id == "spikey")
 						{
 							MissionManager.instance.OnEnemyKilled(3);
 						}
-						else
+						else if(this.currentHat.id == "jason")
 						{
 							MissionManager.instance.OnEnemyKilled(2);
 						}

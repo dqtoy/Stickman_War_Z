@@ -629,18 +629,18 @@ public class MonetizationManager : MonoBehaviour
 
 	public void ClearAndScheduleNotifications()
 	{
-		//NPBinding.NotificationService.CancelAllLocalNotification();
-		//NPBinding.NotificationService.ClearNotifications();
-		//if (this.notifToggle.isOn)
-		//{
-		//	this.CreateNotification(DateTime.Now.AddMinutes((double)this.targetMinutes), "你的免费礼物在这里！", eNotificationRepeatInterval.NONE);
-		//	this.CreateNotification(DateTime.Now.AddMinutes((double)this.targetMinutes).AddDays(1.0), "别忘了领取免费礼物。", eNotificationRepeatInterval.NONE);
-		//	this.CreateNotification(DateTime.Now.AddMinutes((double)this.targetMinutes).AddDays(2.0), "暗影武士，我们给你准备了礼物！", eNotificationRepeatInterval.NONE);
-		//	this.CreateNotification(DateTime.Now.AddMinutes((double)this.targetMinutes).AddDays(3.0), "你不想要这份礼物吗？ :(", eNotificationRepeatInterval.NONE);
-		//}
-	}
+        //NPBinding.NotificationService.CancelAllLocalNotification();
+        //NPBinding.NotificationService.ClearNotifications();
+        //if (this.notifToggle.isOn)
+        //{
+        //    this.CreateNotification(DateTime.Now.AddMinutes((double)this.targetMinutes), "你的免费礼物在这里！", eNotificationRepeatInterval.NONE);
+        //    this.CreateNotification(DateTime.Now.AddMinutes((double)this.targetMinutes).AddDays(1.0), "别忘了领取免费礼物。", eNotificationRepeatInterval.NONE);
+        //    this.CreateNotification(DateTime.Now.AddMinutes((double)this.targetMinutes).AddDays(2.0), "暗影武士，我们给你准备了礼物！", eNotificationRepeatInterval.NONE);
+        //    this.CreateNotification(DateTime.Now.AddMinutes((double)this.targetMinutes).AddDays(3.0), "你不想要这份礼物吗？ :(", eNotificationRepeatInterval.NONE);
+        //}
+    }
 
-	public void OnBeltExamAgainPressed()
+    public void OnBeltExamAgainPressed()
 	{
 		int num = StoryManager.instance.level * 50;
 		if (StoryManager.instance.level == 0)
@@ -859,8 +859,8 @@ public class MonetizationManager : MonoBehaviour
  //       NPBinding.NotificationService.ScheduleLocalNotification(crossPlatformNotification);
  //   }
 
-    public void BuyRemoveAds()
-    {
-        StoreManager.instance.BuyProductID("removeads");
-    }
+    //public void BuyRemoveAds()
+    //{
+    //    StoreManager.instance.BuyProductID("removeads");
+    //}
 }

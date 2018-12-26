@@ -94,7 +94,7 @@ public class SceneManager : MonoBehaviour
 
 	private void Start()
 	{
-		this.firstStart = PlayerPrefsX.GetBool("FirstStart", true);
+        this.firstStart = PlayerPrefsX.GetBool("FirstStart", true);  
 		this.cam = Camera.main.GetComponent<ProCamera2D>();
 		this.inputStarted = false;
 		this.lastHitRange = UnityEngine.Random.Range(2f, 3f);

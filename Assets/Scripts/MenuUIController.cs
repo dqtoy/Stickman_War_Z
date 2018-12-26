@@ -16,8 +16,6 @@ public class MenuUIController : MonoBehaviour {
     [SerializeField]
     private GameObject _itemBtn;
     [SerializeField]
-    private GameObject _leaderBoardBtn;
-    [SerializeField]
     private GameObject _menuBtn;
     [SerializeField]
     private GameObject _scoreText;
@@ -71,7 +69,6 @@ public class MenuUIController : MonoBehaviour {
         _pauseBtn.SetActive(false);
         _story.SetActive(true);
         _itemBtn.SetActive(true);
-        _leaderBoardBtn.SetActive(true);
         _menuBtn.SetActive(true);
         _scoreText.SetActive(false);
         _gameOverMenu.SetActive(false);
@@ -83,7 +80,6 @@ public class MenuUIController : MonoBehaviour {
         }
         _story.GetComponent<CanvasGroup>().DOFade(1f,0.5f);
         _itemBtn.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
-        _leaderBoardBtn.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
         _menuBtn.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
     }
     public void CloseMenuFirstStart()
@@ -94,7 +90,6 @@ public class MenuUIController : MonoBehaviour {
         _gotItemPanel.gameObject.SetActive(false);
         _story.gameObject.SetActive(false);
         _itemBtn.gameObject.SetActive(false);
-        _leaderBoardBtn.gameObject.SetActive(false);
         _menuBtn.gameObject.SetActive(false);
     }
     public void CloseMenu()
@@ -106,7 +101,6 @@ public class MenuUIController : MonoBehaviour {
         _pauseBtn.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
         _story.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(()=> { _story.gameObject.SetActive(false); });
         _itemBtn.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _itemBtn.gameObject.SetActive(false); });
-        _leaderBoardBtn.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _leaderBoardBtn.gameObject.SetActive(false); });
         _menuBtn.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _menuBtn.gameObject.SetActive(false); });
     }
 
@@ -119,7 +113,6 @@ public class MenuUIController : MonoBehaviour {
         _pauseBtn.SetActive(false);
         _story.SetActive(true);
         _itemBtn.SetActive(true);
-        _leaderBoardBtn.SetActive(true);
         _menuBtn.SetActive(true);
         _gotItemPanel.SetActive(false);
         _photoShare.transform.DOLocalMoveY(150, 1f);
@@ -127,7 +120,6 @@ public class MenuUIController : MonoBehaviour {
         _scoreText.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
         _story.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
         _itemBtn.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
-        _leaderBoardBtn.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
         _menuBtn.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
         _topBar.transform.DOLocalMoveX(0, 0.5f);
         _midBar.transform.DOLocalMoveX(0, 0.65f);
@@ -147,7 +139,6 @@ public class MenuUIController : MonoBehaviour {
         _scoreText.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _scoreText.gameObject.SetActive(false); });
         _story.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _story.gameObject.SetActive(false); });
         _itemBtn.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _itemBtn.gameObject.SetActive(false); });
-        _leaderBoardBtn.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _leaderBoardBtn.gameObject.SetActive(false); });
         _menuBtn.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _menuBtn.gameObject.SetActive(false); });
         _topBar.transform.DOLocalMoveX(-810f, 0.75f).OnComplete(() => { isOpenGameOver = false; _gameOverMenu.gameObject.SetActive(false); });
         _midBar.transform.DOLocalMoveX(-810f, 0.65f);
@@ -165,7 +156,6 @@ public class MenuUIController : MonoBehaviour {
         _scoreText.GetComponent<CanvasGroup>().DOFade(1f, 0.5f);
         _story.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _story.gameObject.SetActive(false); });
         _itemBtn.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _itemBtn.gameObject.SetActive(false); });
-        _leaderBoardBtn.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _leaderBoardBtn.gameObject.SetActive(false); });
         _menuBtn.GetComponent<CanvasGroup>().DOFade(0f, 0.5f).OnComplete(() => { _menuBtn.gameObject.SetActive(false); });
         _topBar.transform.DOLocalMoveX(-810f, 0.75f).OnComplete(()=> { isOpenGameOver = false; _gameOverMenu.gameObject.SetActive(false); });
         _midBar.transform.DOLocalMoveX(-810f, 0.65f);
